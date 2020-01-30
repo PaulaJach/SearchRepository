@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from './Button';
-
+import ModalContent from './ModalContent';
 
 import '../index.scss';
-import ModalContent from './ModalContent';
+
 
 class App extends React.Component {
     constructor(props) {
@@ -20,9 +20,11 @@ class App extends React.Component {
         this.setState({userInput: event.target.value});
     }
 
-    buttonClickHandler = (event) => {
-        event.preventDefault();
-        this.search()
+    componentDidMount() {
+        this.buttonClickHandler = (event) => {
+            event.preventDefault();
+            this.search()
+        }
     }
 
     toggleModalHandler = () => {
@@ -31,11 +33,13 @@ class App extends React.Component {
             modalShow: !showModal
         });
     }
+
     closeModalHandler = () => {
         this.setState({
             modalShow: false
         });
     }
+    
     search() {
         const url = `https://api.github.com/search/repositories?q=${this.state.userInput}`;
         console.log('this.state', this.state);
@@ -86,6 +90,7 @@ class App extends React.Component {
                 <button onClick={this.buttonClickHandler}>Submit</button>
                 {modal}
             </div>
+
         )
     }
 }
