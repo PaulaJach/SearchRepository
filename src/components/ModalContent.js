@@ -4,9 +4,9 @@ const ModalContent = (props) => {
     return (
         <div>
             <div key={props.id} className="list__item">
-                <p>Name: {props.name}</p>
-                <p> Link to repository: 
-                    <a href = {props.link}
+                <p className="bold">{props.name}</p>
+                <p>link to repository: 
+                    <a className="link" href = {props.link}
                     target = "_blank"
                     rel ="noopener noreferrer"> {props.link}</a>
                 </p>

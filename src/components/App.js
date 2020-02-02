@@ -58,7 +58,7 @@ class App extends React.Component {
         if (this.state.modalShow) {
             modal = (
                 <div>
-                        <div>
+                        <div className="modal__content">
                             {
                                 this.state.items !== undefined && this.state.items.map((item, id) => {
                                     return <ModalContent
@@ -67,12 +67,13 @@ class App extends React.Component {
                                         link={item.html_url}/>
                                 })
                             }
-                        </div>
-                        <div>
                             {
-                                this.state.items !== undefined &&  this.state.items.length !== 0 &&
-                                <Button close={this.closeModalHandler}
-                            
+                                this.state.items !== undefined && this.state.items.length !== 0 &&
+                                    <
+                                    Button close = {
+                                        this.closeModalHandler
+                                    }
+
                                 />
                             }
                         </div>
@@ -81,17 +82,20 @@ class App extends React.Component {
         }
         let info = (<div></div>);
         if (this.state.items === undefined) {
-            info = (<div><h2>Input cannot be empty!</h2>
-            <h3>Please type repository name</h3></div>);
+            info = (
+                <div className="warning">
+                    <h2>Search input cannot be empty!</h2>
+                    <h3>Please type repository name!</h3>
+                </div>);
         }
 
         return (
             <div className="content">
-                <h1>Search Repository on Github</h1>
+                <h1 className="content__title">Search Repository on Github</h1>
                 <input 
                     className="input"
                     type="text"
-                    placeholder="search repository"
+                    placeholder="repository name"
                     onChange={this.inputChangeHandler}
                 />
                 <button 
@@ -100,11 +104,10 @@ class App extends React.Component {
                 </button>
                     {info}
                 <EscapeOutside 
-                    onEscapeOutside={this.handleEscapeOutside}>
-                    {modal} 
+                    onEscapeOutside={this.handleEscapeOutside}> 
+                    { modal}
                 </EscapeOutside>
             </div>
-
         )
     }
 }
