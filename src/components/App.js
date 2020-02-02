@@ -5,7 +5,6 @@ import EscapeOutside from 'react-escape-outside';
 
 import '../index.scss';
 
-
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -29,6 +28,7 @@ class App extends React.Component {
             this.setState({modalShow: true});
         }
     }
+    
     handleEscapeOutside = () => {
         this.setState({modalShow: false});
     }
@@ -39,7 +39,6 @@ class App extends React.Component {
 
     search() {
         const url = `https://api.github.com/search/repositories?q=${this.state.userInput}`;
-        console.log('this.state', this.state);
 
         fetch(url, {
             method: 'GET',
@@ -61,7 +60,7 @@ class App extends React.Component {
                 <div>
                         <div>
                             {
-                                this.state.items.map((item, id) => {
+                                this.state.items !== undefined && this.state.items.map((item, id) => {
                                     return <ModalContent
                                         name={item.name}
                                         key={item.id}
@@ -71,7 +70,7 @@ class App extends React.Component {
                         </div>
                         <div>
                             {
-                                this.state.items.length !==0 &&
+                                this.state.items !== undefined &&  this.state.items.length !== 0 &&
                                 <Button close={this.closeModalHandler}
                             
                                 />
@@ -80,18 +79,28 @@ class App extends React.Component {
                 </div>
             )
         }
+        let info = (<div></div>);
+        if (this.state.items === undefined) {
+            info = (<div><h2>Input cannot be empty!</h2>
+            <h3>Please type repository name</h3></div>);
+        }
+
         return (
-            <div>
+            <div className="content">
                 <h1>Search Repository on Github</h1>
                 <input 
-                className="input"
-                type="text"
-                onChange={this.inputChangeHandler}
+                    className="input"
+                    type="text"
+                    placeholder="search repository"
+                    onChange={this.inputChangeHandler}
                 />
-                <button className="button__submit" onClick={this.buttonClickHandler} 
-               
-                >Submit</button>
-                <EscapeOutside onEscapeOutside={this.handleEscapeOutside}>
+                <button 
+                    className="button__submit" 
+                    onClick={this.buttonClickHandler}>Submit
+                </button>
+                    {info}
+                <EscapeOutside 
+                    onEscapeOutside={this.handleEscapeOutside}>
                     {modal} 
                 </EscapeOutside>
             </div>

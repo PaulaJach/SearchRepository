@@ -2,7 +2,7 @@ import React from 'react';
 
 const Button = (props) => {
 
-    return <button onClick={props.close} 
+    return <button className="button__modal" onClick={props.close} 
     >Close</button>;
 }
 
