@@ -12,7 +12,8 @@ class App extends React.Component {
         this.state = {
             userInput: '',
             modalShow: true,
-            items: []    
+            items: [],
+            info: (<div></div>),  
         };
         this.handleEscapeOutside = this.handleEscapeOutside.bind(this);
     }
@@ -26,6 +27,7 @@ class App extends React.Component {
             event.preventDefault();
             this.search();
             this.setState({modalShow: true});
+
         }
     }
     
@@ -38,19 +40,60 @@ class App extends React.Component {
     }
 
     search() {
-        const url = `https://api.github.com/search/repositories?q=${this.state.userInput}`;
+        if(this.state.userInput === ""){
+            this.setState({info: 
+                (
+                    <div className="warning">
+                        <h2>Error</h2>
+                        <h3>1Please type repository name!</h3>
+                    </div>
+                )
+            })
+            return
+        }
+            const url = `https://api.github.com/search/repositories?q=${this.state.userInput}`;
 
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                "Accept": "application.json"
-            }
-        })
-        .then(response => response.json())
-        .then(body => this.setState({
-            items: body.items
-        }))
-        .catch(response => console.log("Error: " + response));
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    "Accept": "application.json"
+                }
+            })
+            .then(response => response.json())
+            .then(body => {
+                console.log(body)
+                if (body.items === undefined) {
+                    this.setState({
+                        info: (
+                            <div className="warning">
+                                <h2>Error</h2>
+                                <h3>2Please type repository name!</h3>
+                            </div>
+                        )
+                    }) 
+
+                    return
+                } 
+
+                if (body.items.length === 0) {
+                    this.setState({ info: (<div>Not found!</div>),
+                    items: []});
+                    return
+                }
+
+                if (body.items.length !== 0) {
+                    this.setState({ items: body.items, info: (<div></div>) });
+                    
+                }
+            })
+            .catch(response => this.setState({
+                    info: (
+                        <div className="warning">
+                            <h2>Error:</h2>
+                            <h3>3Please type repository name!</h3>
+                        </div>)
+                })
+            )
     }
 
     render() {
@@ -80,15 +123,6 @@ class App extends React.Component {
                 </div>
             )
         }
-        let info = (<div></div>);
-        if (this.state.items === undefined) {
-            info = (
-                <div className="warning">
-                    <h2>Search input cannot be empty!</h2>
-                    <h3>Please type repository name!</h3>
-                </div>);
-        }
-
         return (
             <div className="content">
                 <h1 className="content__title">Search Repository on Github</h1>
@@ -100,9 +134,9 @@ class App extends React.Component {
                 />
                 <button 
                     className="button__submit" 
-                    onClick={this.buttonClickHandler}>Submit
+                    onClick={this.buttonClickHandler}>Search
                 </button>
-                    {info}
+                    {this.state.info}
                 <EscapeOutside 
                     onEscapeOutside={this.handleEscapeOutside}> 
                     { modal}
