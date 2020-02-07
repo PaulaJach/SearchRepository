@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
+$screen-sm-max: 420px;
+
+@mixin sm {
+    @media (max-width: #{$screen-sm-max}) {
+        @content;
+    }
+}
+
 body {
     box-sizing: border-box;
-    background-color: floralwhite;
-    text-align: center;
+    margin: 0;
+    padding: 0;
     font-family: 'Roboto', sans-serif;
+    background-color: #f9fcf9;
 }
+
 .warning {
     margin: 30px auto;
     color: red;
@@ -26,41 +36,97 @@ body {
         padding: 20px 0;
     }
 }
-.input,
-.button__submit,
-.button__modal {
-    font-size: 20px;
-    border: 1px solid grey;
-    border-radius: 5px;
-    padding: 5px;
-    &:hover {
-        background-color: #eee; 
-        cursor: pointer;
+.searchInput {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    height: 35px;
+    .input {
+        display: block;
+        width: 100%;
+        font-size: inherit;
+        
+        border-radius: 5px;
+        border: 1px solid green;
+        &:focus {
+            outline: none;
+        }
+        &::placeholder {
+            padding-left: 2px;  
+        }
+        &:hover {
+           background-color: #f7fbf7;
+        }
     }
+    
+}
+.btn {
+    border: 1px solid green;
+    border-radius: 5px;
+    font-size: inherit;
+    background-color: #e5f2e5;
     &:focus {
         outline: none;
-    }  
+    }
+    &:hover {
+        color: #ccc;
+        background-color: #003300;
+    }
 }
+
+.btn__modal {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.mobile{
+    
+    .btn__mobile {
+        display: none;
+        @include sm {
+            display: block;
+        }
+}
+
+}
+
 .modal__content{
+    width: 80%;
+    @include sm {
+        width: 100%;
+    }
     padding: 10px;
     margin: 30px auto;   
 }
 .list__item {
     border-radius: 5px;
-    border: 1px solid lightgrey;
-    box-shadow: -5px 9px 5px -10px rgba(0, 0, 0, 0.39);
+    border: 1px dotted #ced9ce;
+    box-shadow: -2px 2px 5px -5px rgba(0, 0, 0, 0.39);
     padding: 5px;
     margin-bottom: 5px;
     line-height: 5px;
     color: #172b3b;
+    text-align: start;
+    line-height: normal;
+    @include sm{
+        text-align: center;
+    }
     .bold {
         font-weight: bold;
     }
     .link {
+        display: block;
+        @include sm {
+            display: none;
+        }
         text-decoration: none;
         color: darkblue;
     }
+    &:hover {
+        background-color: #e5f2e5;
+    }
 }
+
 
 
 
