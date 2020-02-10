@@ -7,17 +7,13 @@ import EscapeOutside from 'react-escape-outside';
 import '../index.scss';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            userInput: '',
-            modalShow: true,
-            items: [],
-            info: (<div></div>),  
-        };
-    }
-
+    state = {
+        userInput: '',
+        modalShow: true,
+        items: [],
+        info: (<div></div>),  
+    };
+    
     inputChangeHandler = event => this.setState({userInput: event.target.value});
 
     componentDidMount() {
