@@ -3,6 +3,7 @@ import Button from './Button';
 import ModalContent from './ModalContent';
 import EscapeOutside from 'react-escape-outside';
 
+
 import '../index.scss';
 
 class App extends React.Component {
@@ -15,8 +16,6 @@ class App extends React.Component {
             items: [],
             info: (<div></div>),  
         };
-
-        this.handleEscapeOutside = this.handleEscapeOutside.bind(this);
     }
 
     inputChangeHandler = event => this.setState({userInput: event.target.value});
@@ -93,29 +92,32 @@ class App extends React.Component {
 
         let modal = (<div></div>);
         if (modalShow) {
-        modal = (<div>
-            <div className = "modal__content" > 
+         modal = 
+        (<div>
+            <div> 
                 { 
                     items !== undefined && items.length !== 0 &&
                     <Button close={this.closeModalHandler}/> 
                 }
-                {
-                    items !== undefined && items.map((item, id) => {
-                        return <ModalContent
-                        name = {item.name}
-                        key = {item.id}
-                        link = {item.html_url}
-                        />
-                    })
-                } 
+                <div className="modal__content">
+                    {
+                        items !== undefined && items.map((item, id) => {
+                            return <ModalContent
+                            name = {item.name}
+                            key = {item.id}
+                            link = {item.html_url}
+                            />
+                        })
+                    } 
+                </div>
             </div> 
         </div>
         )
     }
     return ( 
         <div className = "content">
-            <h1 className="content__title"><span><i className="fab fa-github"></i></span>
-                Search Repository on Github</h1>
+            <h1 className="content__title"><span className="icon"><i className="fab fa-github"></i></span>
+                Find Repository on Github</h1>
             {info}
             <form className="searchInput">
                 <input  className="input" 

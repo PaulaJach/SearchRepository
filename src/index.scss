@@ -13,7 +13,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: #f9fcf9;
+    background-color: white;
 }
 
 .warning {
@@ -34,6 +34,9 @@ body {
         color: #172b3b;
         margin-bottom: 20px;
         padding: 20px 0;
+        .icon {
+            padding-right: 5px;
+        }
     }
 }
 .searchInput {
@@ -47,8 +50,8 @@ body {
         width: 100%;
         font-size: inherit;
         
-        border-radius: 5px;
-        border: 1px solid green;
+        border-radius: 2px;
+        border: 1px solid #172b3b;
         &:focus {
             outline: none;
         }
@@ -56,42 +59,41 @@ body {
             padding-left: 2px;  
         }
         &:hover {
-           background-color: #f7fbf7;
+           background-color: #ebeeeb;
         }
-    }
-    
+    }  
 }
 .btn {
-    border: 1px solid green;
-    border-radius: 5px;
+    border: 1px solid #172b3b;
+    border-radius: 2px;
     font-size: inherit;
-    background-color: #e5f2e5;
+    background-color: #ebeeeb;
     &:focus {
         outline: none;
     }
     &:hover {
         color: #ccc;
-        background-color: #003300;
+        background-color: #1c3447;
     }
 }
-
 .btn__modal {
     padding: 5px;
-    margin-bottom: 10px;
+    margin-top: 30px;   
 }
-.mobile{
-    
-    .btn__mobile {
-        display: none;
-        @include sm {
-            display: block;
-        }
-}
-
+.btn__link {
+    background-color: #1c3447;
+    color: white;
+    text-decoration: none;
+ 
 }
 
 .modal__content{
-    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    @include sm {
+        grid-template-columns: 1fr;
+    }
+    grid-gap: 10px;
     @include sm {
         width: 100%;
     }
@@ -99,31 +101,23 @@ body {
     margin: 30px auto;   
 }
 .list__item {
-    border-radius: 5px;
+    border-radius: 2px;
     border: 1px dotted #ced9ce;
-    box-shadow: -2px 2px 5px -5px rgba(0, 0, 0, 0.39);
+    box-shadow: -4px 4px 4px -4px rgba(0, 0, 0, 0.39);
     padding: 5px;
-    margin-bottom: 5px;
-    line-height: 5px;
     color: #172b3b;
-    text-align: start;
+    text-align: center;
     line-height: normal;
-    @include sm{
-        text-align: center;
+    height: 100px;
+    .name {
+        display: block;
+        padding: 2px;
     }
     .bold {
         font-weight: bold;
     }
-    .link {
-        display: block;
-        @include sm {
-            display: none;
-        }
-        text-decoration: none;
-        color: darkblue;
-    }
     &:hover {
-        background-color: #e5f2e5;
+        background-color: #ebeeeb;
     }
 }
 
