@@ -1,53 +1,31 @@
 import React from 'react';
 import Button from './Button';
+import Search from './Search';
 import ModalContent from './ModalContent';
 import EscapeOutside from 'react-escape-outside';
 
 
 import '../styles/index.scss';
+import RepoListItem from './RepoListItem';
+import RepoList from './RepoList';
+import RepoResults from './RepoResults';
 
 class App extends React.Component {
     state = {
-        userInput: '',
         modalShow: true,
-        items: [],
+        results: {},
         info: (<div></div>),  
     };
     
-    inputChangeHandler = event => this.setState({userInput: event.target.value});
-
-    componentDidMount() {
-        this.buttonClickHandler = (event) => {
-            event.preventDefault();
-            this.search();
-            this.setState({modalShow: true});
-        }
-    }
 
     handleEscapeOutside = () => this.setState({modalShow: false});
     
     closeModalHandler = () => this.setState({modalShow: false});
     
-    search() {
-        if (this.state.userInput === "") {
-            this.setState({
-                info: (<div className="warning">
-                    <h3>Please type repository name!</h3> 
-                    </div>)
-            }) 
-            return;
-        }
-        const url = `https://api.github.com/search/repositories?q=${this.state.userInput}`;
-
-        fetch(url, {
-            method: 'GET',
-                headers: {
-                    "Accept": "application.json"
-                }
-            })
-            .then(response => response.json())
-            .then(body => {
-            console.log(body)
+    onItemsFetched = (results) => {
+        console.log(results, this.state)
+        this.setState({results:results})
+        /*
             if (body.items === undefined) {
                 this.setState({
                     info: ( 
@@ -73,14 +51,12 @@ class App extends React.Component {
                     items: body.items,
                     info: (<div></div>) })
             }
-            return;
-            })
-            .catch(response => this.setState({
+
                 info: (<div className = "warning">
                         <h2>Error. Please try later.</h2> 
                     </div>)
-            })
-        )
+            
+        */
     }
     
     render() {
@@ -110,22 +86,15 @@ class App extends React.Component {
         </div>
         )
     }
+
     return ( 
         <div className = "content">
             <h1 className="content__title"><span className="icon"><i className="fab fa-github"></i></span>
                 Find Repository on Github</h1>
             {info}
-            <form className="searchInput">
-                <input  className="input" 
-                        type="text"
-                        placeholder="repository name"
-                        onChange={this.inputChangeHandler}/> 
-                <button className="btn button__submit"
-                        onClick={this.buttonClickHandler}>Search 
-                </button> 
-            </form>
+           <Search title={"abc"} onItemsFetched={this.onItemsFetched}/>
             <EscapeOutside onEscapeOutside={this.handleEscapeOutside} > 
-                {modal} 
+            <RepoResults results={this.state.results}></RepoResults>
             </EscapeOutside> 
         </div>
         )
