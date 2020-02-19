@@ -8,7 +8,7 @@ const ModalContent = props => {
                 <a className="link" href = {props.link}
                     target = "_blank"
                     rel ="noopener noreferrer">
-                    <button className="btn btn__link">LINK</button></a>
+                    <button className="btn__link">LINK TO GITHUB</button></a>
             </div>
         </div>
     )

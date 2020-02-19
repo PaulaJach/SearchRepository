@@ -4,7 +4,7 @@ import ModalContent from './ModalContent';
 import EscapeOutside from 'react-escape-outside';
 
 
-import '../index.scss';
+import '../styles/index.scss';
 
 class App extends React.Component {
     state = {
